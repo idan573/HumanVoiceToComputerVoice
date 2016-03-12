@@ -1,0 +1,28 @@
+﻿<Window x:Class="HumanVoiceToComputerVoice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None" ResizeMode="CanResize"  
+        WindowStartupLocation="CenterOwner"
+        MouseDown="Window_MouseDown"
+        WindowState="Normal"
+        Height="350" Width="525"
+        Loaded="OnLoad">
+   <Border BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8"  Background="Black" Margin="20">
+        <StackPanel>
+            <Button Click="OnCancel" Width="19" Height="19" Background="Black" Foreground="Aqua" BorderThickness="0" HorizontalAlignment="Left" Margin="5,5,0,0">
+                <Image Source="Images/x.png" Width="15" Height="15"></Image>
+            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,35,0,0">
+                <Button Click="OnMice" Content="Talk" x:Name="BtMicrophone" Width="80" Height="60" Background="Black" Foreground="White" FontSize="20"></Button>
+                <Button Name="BtComputerSpeak" Content="Play" Click="OnPlayButton" Width="80" Height="60" Background="Black" Foreground="White" FontSize="20" Margin="50,0,0,0"></Button>
+            </StackPanel>
+            <CheckBox x:Name="TextBoxLongDict" HorizontalAlignment="Center" Foreground="White" Content="Long Dictation" VerticalAlignment="Bottom" Margin="-85,20,0,0" FontSize="16"/>
+            <TextBlock Name="TextRecordedToken" Text="" Height="40" Width="auto" Background="Black" Foreground="Yellow" Margin="20,20,0,0" HorizontalAlignment="Center" FontSize="22"> </TextBlock>
+        </StackPanel>
+    </Border>
+</Window>
