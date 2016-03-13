@@ -15,12 +15,10 @@ namespace HumanVoiceToComputerVoice
         private readonly string _subscriptionKey = ConfigurationManager.AppSettings["primaryKey"];
         private string _recognizedToken;
         private MicrophoneRecognitionClient _micClient;
-        private readonly AutoResetEvent _FinalResponseEvent; //responsible for ending recording event
         
         public MainWindow()
         {
             InitializeComponent();
-            _FinalResponseEvent = new AutoResetEvent(false);
         }
 
         private void OnMice(object sender, RoutedEventArgs e)
@@ -69,11 +67,9 @@ namespace HumanVoiceToComputerVoice
 
         void OnMicShortPhraseResponseReceivedHandler(object sender, SpeechResponseEventArgs e)
         {
-            Dispatcher.Invoke((Action)(() =>
+            var callback = (Action)(() =>
             {
                 Console.WriteLine("--- OnMicShortPhraseResponseReceivedHandler ---");
-
-                _FinalResponseEvent.Set();
 
                 _micClient.EndMicAndRecognition();
 
@@ -83,7 +79,9 @@ namespace HumanVoiceToComputerVoice
                 WriteResponseResult(e);
 
                 UpdateUi();
-            }));
+            });
+
+            Dispatcher.Invoke(callback);
         }
 
         private void UpdateUi()
@@ -106,8 +104,6 @@ namespace HumanVoiceToComputerVoice
             {
                 Dispatcher.Invoke((Action)(() =>
                 {
-                    _FinalResponseEvent.Set();
-
                     UpdateUi();
 
                     // we got the final result, so it we can end the mic reco.  No need to do this
@@ -120,16 +116,13 @@ namespace HumanVoiceToComputerVoice
 
         void OnMicrophoneStatus(object sender, MicrophoneEventArgs e)
         {
-            Dispatcher.Invoke(() =>
+            Console.WriteLine("--- Microphone status change received by OnMicrophoneStatus() ---");
+            Console.WriteLine("********* Microphone status: {0} *********", e.Recording);
+            if (e.Recording)
             {
-                Console.WriteLine("--- Microphone status change received by OnMicrophoneStatus() ---");
-                Console.WriteLine("********* Microphone status: {0} *********", e.Recording);
-                if (e.Recording)
-                {
-                    Console.WriteLine("Please start speaking.");
-                }
-                Console.WriteLine();
-            });
+                Console.WriteLine("Please start speaking.");
+            }
+            Console.WriteLine();
         }
 
         private void WriteResponseResult(SpeechResponseEventArgs e)
