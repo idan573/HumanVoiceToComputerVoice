@@ -12,7 +12,7 @@
         WindowState="Normal"
         Height="350" Width="525"
         Loaded="OnLoad">
-   <Border BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8"  Background="Black" Margin="20">
+    <Border BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8"  Background="Black" Margin="20">
         <StackPanel>
             <Button Click="OnCancel" Width="19" Height="19" Background="Black" Foreground="Aqua" BorderThickness="0" HorizontalAlignment="Left" Margin="5,5,0,0">
                 <Image Source="Images/x.png" Width="15" Height="15"></Image>
@@ -22,7 +22,28 @@
                 <Button Name="BtComputerSpeak" Content="Play" Click="OnPlayButton" Width="80" Height="60" Background="Black" Foreground="White" FontSize="20" Margin="50,0,0,0"></Button>
             </StackPanel>
             <CheckBox x:Name="TextBoxLongDict" HorizontalAlignment="Center" Foreground="White" Content="Long Dictation" VerticalAlignment="Bottom" Margin="-85,20,0,0" FontSize="16"/>
-            <TextBlock Name="TextRecordedToken" Text="" Height="40" Width="auto" Background="Black" Foreground="Yellow" Margin="20,20,0,0" HorizontalAlignment="Center" FontSize="22"> </TextBlock>
+            <TextBlock Name="TextRecordedToken" Text="" Height="40" Width="auto" Background="Black" Foreground="Yellow" Margin="20,20,0,0" HorizontalAlignment="Center" FontSize="22"></TextBlock>
+            <Grid x:Name="StatusGrid" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Ellipse x:Name="EllipseStatusIndicator" Height="30" Width="30" Fill="Red" Grid.Column="0" Grid.Row="0"></Ellipse>
+                <Ellipse/>
+                <Label x:Name="TxtConnectedStatus" Content="Not Connected" Foreground="Red" Grid.Column="1" Grid.Row="0" Background="Black" FontSize="16"></Label>
+                <Button Height="30" Width="20" BorderBrush="Black" Margin="20, 0, 0, 0" Click="OnInfo" Grid.Column="2">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/info.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <Button Click="OnLoad" Grid.Column="3" Height="30" Width="30" Margin="50, 0, 0, 0" BorderBrush="Black">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Refresh.png" ></ImageBrush>
+                    </Button.Background>
+                </Button>
+            </Grid>
         </StackPanel>
     </Border>
 </Window>
